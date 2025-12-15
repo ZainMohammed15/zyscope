@@ -198,7 +198,7 @@ export default function Explore() {
       setError('');
       try {
         // Load cities
-        const citiesRes = await fetch('/cities');
+        const citiesRes = await get('/cities');
         if (!citiesRes.ok) {
           const data = await citiesRes.json().catch(() => ({}));
           throw new Error(data.error || 'Failed to load countries');
@@ -218,7 +218,7 @@ export default function Explore() {
         // Load user visits if logged in
         if (user?.id) {
           try {
-            const visitsRes = await fetch(`/visits?user_id=${user.id}`);
+            const visitsRes = await get(`/visits?user_id=${user.id}`);
             if (visitsRes.ok) {
               const visitsData = await visitsRes.json();
               const visitedRows = visitsData.visits || visitsData || [];

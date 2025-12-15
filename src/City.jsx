@@ -91,7 +91,7 @@ export default function City() {
       setLoadingCity(true);
       setError('');
       try {
-        const res = await fetch('/cities');
+        const res = await get('/cities');
         if (!res.ok) {
           const data = await res.json().catch(() => ({}));
           throw new Error(data.error || 'Failed to load country');
@@ -103,7 +103,7 @@ export default function City() {
 
         // Fetch visits to determine visited status if user exists.
         if (user?.id) {
-          const visitsRes = await fetch(`/visits?user_id=${user.id}`);
+          const visitsRes = await get(`/visits?user_id=${user.id}`);
           if (visitsRes.ok) {
             const visitsData = await visitsRes.json();
             const hasVisited = (visitsData.visits || []).some((v) => v.location.toLowerCase() === found.name.toLowerCase());
@@ -126,7 +126,7 @@ export default function City() {
       setLoadingReviews(true);
       setReviewError('');
       try {
-        const res = await fetch(`/reviews?location=${encodeURIComponent(city.name)}`);
+        const res = await get(`/reviews?location=${encodeURIComponent(city.name)}`);
         if (!res.ok) {
           const data = await res.json().catch(() => ({}));
           throw new Error(data.error || 'Failed to load reviews');
@@ -146,7 +146,7 @@ export default function City() {
     if (!city || !user?.id) return;
     try {
       setError('');
-      const res = await fetch('/explore', {
+      const res = await post('/explore', { user_id: user.id, location: city.name });
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: user.id, location: city.name }),
@@ -169,7 +169,7 @@ export default function City() {
     try {
       setSubmittingReview(true);
       setReviewError('');
-      const res = await fetch('/reviews', {
+      const res = await post('/reviews', { user_id: user.id, location: city.name, rating: Number(form.rating), comment: form.comment });
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: user.id, location: city.name, rating: Number(form.rating), comment: form.comment }),

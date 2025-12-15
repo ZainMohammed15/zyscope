@@ -46,7 +46,7 @@ export default function Profile() {
       setUpdating(true);
       setError('');
       setStatus('');
-      const res = await fetch('/user/update', {
+      const res = await put('/user/update', values);
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
@@ -85,7 +85,7 @@ export default function Profile() {
       setLoggingOut(true);
       setError('');
       setStatus('');
-      await fetch('/user/logout', { method: 'POST' }).catch(() => {});
+      await post('/user/logout').catch(() => {});
     } finally {
       setUser(null);
       setStatus('Logged out');
@@ -104,7 +104,7 @@ export default function Profile() {
       setDeleting(true);
       setError('');
       setStatus('');
-      const res = await fetch('/user/delete', {
+      const res = await del('/user/delete', { body: JSON.stringify({ user_id: user.id }) });
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ user_id: user.id }),

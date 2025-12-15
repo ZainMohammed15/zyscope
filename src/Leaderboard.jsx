@@ -14,7 +14,7 @@ export default function Leaderboard() {
       setLoading(true);
       setError('');
       try {
-        const res = await fetch('/leaderboard');
+        const res = await get('/leaderboard');
         if (!res.ok) {
           const data = await res.json().catch(() => ({}));
           throw new Error(data.error || 'Failed to load leaderboard');

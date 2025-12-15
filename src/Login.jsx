@@ -31,7 +31,7 @@ export default function Login() {
 
     try {
       setLoading(true);
-      const res = await fetch('/user/login', {
+      const res = await post('/user/login', values);
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

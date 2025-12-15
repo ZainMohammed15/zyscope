@@ -111,7 +111,7 @@ export default function App() {
 
   const handleLogout = async () => {
     try {
-      await fetch('/user/logout', { method: 'POST' }).catch(() => {});
+      await post('/user/logout').catch(() => {});
     } finally {
       setUser(null);
     }

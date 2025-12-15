@@ -38,7 +38,7 @@ export default function Help() {
       try {
         setLoadingLive(true);
         setLiveStatus('Syncing help…');
-        const res = await fetch('/help');
+        const res = await get('/help');
         if (!res.ok) throw new Error('Request failed');
         const data = await res.json();
         if (cancelled) return;
